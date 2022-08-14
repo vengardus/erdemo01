@@ -4,6 +4,9 @@ from rest_framework.response import Response
 from ..business.bcainvcab import BCaInvCab
 from base.business.bproducto import BProducto
 from .serializer import ProductoSerializer
+from base.models import CaInvCab, CaInvDet
+from base.choices import EstadoInventarioChoices
+from base.business.bcainvdet import BCaInvDet
 
 
 @api_view(['GET'])
@@ -70,9 +73,7 @@ def add_item(request):
 
         data_response = {
             'status' : status_id,
-            'data' : {
-                'data' : data
-            },
+            'data' : data,
             'message': message
         }
     except Exception as e:
@@ -82,4 +83,52 @@ def add_item(request):
             'message': f'Ocurrió un error except. {e}' 
         }
 
+    return Response(data_response)
+
+
+@api_view(['GET'])
+def get_invcab(request):
+    aTO = CaInvCab.objects.all().filter(estado_inventario=EstadoInventarioChoices.opened)
+    if aTO:
+        oTO:CaInvCab = aTO[0] 
+        data_response = {
+            'status': status.HTTP_200_OK,
+            'data': {
+                'id': oTO.id,
+                's_descripcion': oTO.s_descripcion,
+                'empleado_nombre_copleto': oTO.empleado.s_nombre_completo,
+                's_fecha_inicio': oTO.s_fecha_inicio
+            }
+        }
+    else:
+        data_response = {
+            'status': status.HTTP_204_NO_CONTENT,
+            'data': {}
+        }
+
+    return Response(data_response)
+
+@api_view(['GET'])
+def get_invdet(request, id_invcab, producto_codigo):
+    oBCaInvDet = BCaInvDet()
+    oTO:CaInvDet = oBCaInvDet.get_item(id_invcab, producto_codigo)
+    if oTO == None:
+        data_response = {
+            'status': status.HTTP_204_NO_CONTENT,
+            'data' : {}
+        }
+    else:
+        data_response = {
+            'status': status.HTTP_200_OK,
+            'data': {
+                'id': oTO.producto.id,
+                's_codigo': oTO.producto.s_codigo,
+                'unidad_medida_s_codigo': oTO.unidad_medida.s_codigo,
+                'unidad_medida_s_descripcion': oTO.unidad_medida.s_descripcion,
+                'n_stk_act': oTO.n_stk_act,
+                'ns_conteo1': oTO.ns_conteo1,
+                'ns_conteo2': oTO.ns_conteo2,
+
+            }
+        }
     return Response(data_response)

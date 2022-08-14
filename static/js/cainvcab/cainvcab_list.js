@@ -223,6 +223,7 @@ function init_datagrid(data) {
 
 function get_data_columns(item) {
     return [
+        { data: item.id, class: '' },
         { data: item.empleado, class: '' },
         { data: item.s_descripcion, class: '' },
         { data: item.s_fecha_inicio, class: '' },

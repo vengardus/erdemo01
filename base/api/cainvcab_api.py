@@ -73,6 +73,6 @@ class ControllerCustom(Controller):
         La segunda tupla tiene las etiquetas para pantallas pequeñas
         '''
         return [ 
-                ('Id', 'Descripción', 'F.Inicio', 'Estado', 'Acción'),
+                ('Id', 'Resoosable', 'Descripción', 'F.Inicio', 'Estado', 'Acción'),
         ]
 
