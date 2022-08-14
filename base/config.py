@@ -315,65 +315,65 @@ aMenu = [
     ('Inicio', 'main', []),
 
     ('Inventario', 'cainvcab_list', []),
-    ('InvDet', '#', []),
+    # ('InvDet', '#', []),
 
-    ('Catálogos', '#', [
-       ('Bancos', '#'),
-       ('Cuentas', '#'),
-       ('Rubro Diario', '#'),
-       ('Concepto Diario', '#'),
-    ]),
+    # ('Catálogos', '#', [
+    #    ('Bancos', '#'),
+    #    ('Cuentas', '#'),
+    #    ('Rubro Diario', '#'),
+    #    ('Concepto Diario', '#'),
+    # ]),
 
-    ('Operaciones', '#', [
-        ('Cambio Moneda', '#'),
-        ('Movimientos', '#'),
-        ('Pagos Varios', '#'),
-        ('Transferencias propias', '#'),
+    # ('Operaciones', '#', [
+    #     ('Cambio Moneda', '#'),
+    #     ('Movimientos', '#'),
+    #     ('Pagos Varios', '#'),
+    #     ('Transferencias propias', '#'),
 
-    ]),
+    # ]),
 
 
-    ('Inventario', '#', [
-       ('Ubicacion N1', '#'),
-    ]),
-    ('Admistrativo', '#', [
-       ('Cuentas por cobrar', '#'),
-       ('Cuentas por pagar', '#'),
-       ('Gastos', '#'),
-       ('Tipos de gastos', '#')
-    ]),
-    ('Tienda', '#', [
-        ('Ajuste de stock', '#'),
-        ('Categorias', '#'),
-        ('Compras', '#'),
-        ('Productos', '#'),
-        ('Proveedores', '#')
-    ]),
-    ('Facturacion', '#', [
-        ('Clientes', '#'),
-        ('Promociones', '#'),
-        ('Ventas', '#')
-    ]),
-    ('Reportes', '#', [
-        ('Balance', '#')
-    ]),
-    ('Seguridad', '#', [
-        ('Accesos', '#'),
-        ('Config Dashboard', '#'),
-        ('Grupos', '#'),
-        ('Módulos', '#'),
-        ('Respaldos', '#'),
-        ('Tipo de Módulos', '#'),
-        ('Usuarios', '#')
-    ]),
-    ('Cambiar password', '#', []),
-    ('Compañia', '#', []),
-    ('Mi cuenta', '#', []),
-    ('Logs', '#', [], True),
-    ('Videoteca', '#', [
-        ('Subir Video', '#'),
-        ('Ver Video', '#'),
-    ]),
+    # ('Inventario', '#', [
+    #    ('Ubicacion N1', '#'),
+    # ]),
+    # ('Admistrativo', '#', [
+    #    ('Cuentas por cobrar', '#'),
+    #    ('Cuentas por pagar', '#'),
+    #    ('Gastos', '#'),
+    #    ('Tipos de gastos', '#')
+    # ]),
+    # ('Tienda', '#', [
+    #     ('Ajuste de stock', '#'),
+    #     ('Categorias', '#'),
+    #     ('Compras', '#'),
+    #     ('Productos', '#'),
+    #     ('Proveedores', '#')
+    # ]),
+    # ('Facturacion', '#', [
+    #     ('Clientes', '#'),
+    #     ('Promociones', '#'),
+    #     ('Ventas', '#')
+    # ]),
+    # ('Reportes', '#', [
+    #     ('Balance', '#')
+    # ]),
+    # ('Seguridad', '#', [
+    #     ('Accesos', '#'),
+    #     ('Config Dashboard', '#'),
+    #     ('Grupos', '#'),
+    #     ('Módulos', '#'),
+    #     ('Respaldos', '#'),
+    #     ('Tipo de Módulos', '#'),
+    #     ('Usuarios', '#')
+    # ]),
+    # ('Cambiar password', '#', []),
+    # ('Compañia', '#', []),
+    # ('Mi cuenta', '#', []),
+    # ('Logs', '#', [], True),
+    # ('Videoteca', '#', [
+    #     ('Subir Video', '#'),
+    #     ('Ver Video', '#'),
+    # ]),
 ]
 
 
