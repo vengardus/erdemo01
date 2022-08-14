@@ -122,6 +122,7 @@ def get_invdet(request, id_invcab, producto_codigo):
             'status': status.HTTP_200_OK,
             'data': {
                 'id': oTO.producto.id,
+                's_descripcion': oTO.s_descripcion,
                 's_codigo': oTO.producto.s_codigo,
                 'unidad_medida_s_codigo': oTO.unidad_medida.s_codigo,
                 'unidad_medida_s_descripcion': oTO.unidad_medida.s_descripcion,
