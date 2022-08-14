@@ -1,6 +1,6 @@
 from base import config as PARAMS
 
-class User():
+class BUser():
     aTO = []                # lista de TO
     message = ''            # mensaje devuelto por crud
     aMessage = []           # lista de mensajes

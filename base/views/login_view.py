@@ -4,8 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
 
-from base.models import User as TOUser
-from base.business.user import User
+from base.models import User
+from base.business.buser import BUser
 from base.libs.template import Template
 from base import config as PARAMS
 from base.forms.user_form import UserForm, MyUserCreationForm
@@ -25,13 +25,13 @@ def login_app(request):
         password = request.POST.get('password')
         print(email, password)
         try:
-            oTOUser = TOUser.objects.get(username=email)
+            oUser = User.objects.get(username=email)
         except:
             messages.error(request, 'User does not exist.')
         
-        oTOUser = authenticate(request, username=email, password=password)
-        if oTOUser is not None:
-            login(request, oTOUser)
+        oUser = authenticate(request, username=email, password=password)
+        if oUser is not None:
+            login(request, oUser)
             return redirect('main')
         else:
             messages.error(request, 'Username or Password does not exist.')
@@ -87,8 +87,8 @@ def registerUser(request):
         if not form.is_valid():
             messages.error(request, 'Error en los datos.')
         else:
-            oUser = User()
-            user = oUser.save(form)
+            oBUser = BUser()
+            user = oBUser.save(form)
             if user != None:
                 login(request, user)
                 return redirect('main')

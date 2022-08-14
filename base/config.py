@@ -244,6 +244,13 @@ class Template():
     pagosvarios_form = 'base/pagosvarios/pagosvarios_form.html'
     transferenciaspropias_form = 'base/transferenciaspropias/transferenciaspropias_form.html'
 
+    # erdemo01
+    cainvcab_list = 'base/cainvcab/cainvcab_list.html'
+    cainvcab_form = 'base/cainvcab/cainvcab_form.html'
+    
+    cainvdet_list = 'base/cainvdet/cainvdet_list.html'
+    cainvdet_form = 'base/cainvdet/cainvdet_form.html'
+
 class Route():
     # log
     controller_log = '/controller_log'
@@ -306,6 +313,9 @@ class Action_old():
 
 aMenu = [
     ('Inicio', 'main', []),
+
+    ('Inventario', 'cainvcab_list', []),
+    ('InvDet', '#', []),
 
     ('Catálogos', '#', [
        ('Bancos', '#'),

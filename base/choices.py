@@ -77,3 +77,16 @@ class TipoOperacionChoices:
         return list_filter[0][1] if list else ''
 
 
+class EstadoInventarioChoices:
+    opened = '1'
+    closed = '2'
+    choices = [
+        (opened, 'Abierto'), 
+        (closed, 'Cerrado')
+    ]
+
+    @staticmethod
+    def get_desc(id):
+        list_filter = list(filter(lambda x: x[0]==id, EstadoInventarioChoices.choices))
+        return list_filter[0][1].upper() if list else ''
+
