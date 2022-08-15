@@ -23,11 +23,15 @@ class BCaInvDetU(Table):
             array.append(self.get_oTO_toDict(oTO))
         return array
     
-    def get_oTO_toDict(self, oTO):
+    def get_oTO_toDict(self, oTO:CaInvDetU):
         # acá se genera diccionario con los atributos a retornar
         return {
             'id':oTO.id,
-            'desc':oTO.desc,
+            'ca_inv_det_id':oTO.ca_inv_det.id,
+            'id_conteo':oTO.id_conteo,
+            's_ubicacion':oTO.s_ubicacion,
+            'ns_conteo':oTO.ns_conteo,
+
         }
 
     ''' ----------------------
@@ -127,3 +131,12 @@ class BCaInvDetU(Table):
             
         return ok
 
+    def get_all_parent(self, cainvdet_id, license_id:int=None):
+        if license_id == None:
+            # self.aTO = self.TO.objects.all().order_by('desc')
+            self.aTO = self.TO.objects.all().filter(
+                ca_inv_det__id=cainvdet_id)
+        else:
+            self.aTO = self.TO.objects.all().filter(
+                license_id=license_id, ca_inv_det__id=cainvdet_id)
+        return self.aTO

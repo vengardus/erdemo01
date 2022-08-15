@@ -95,7 +95,7 @@ class CaInvDet(Common):
 
 
 class CaInvDetU(Common):
-    ca_inv_det = models.ForeignKey(CaInvDet, on_delete=models.CASCADE)
+    ca_inv_det = models.ForeignKey(CaInvDet, related_name='cainvdets', on_delete=models.CASCADE)
     id_conteo = models.IntegerField()
     s_ubicacion = models.CharField(max_length=10)
     ns_conteo = models.DecimalField(max_digits=14, decimal_places=4, default=0)

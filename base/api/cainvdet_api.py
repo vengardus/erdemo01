@@ -10,6 +10,7 @@ from django.contrib import messages
 
 from base.libs.controller import Controller
 from base.business.bcainvdet import BCaInvDet
+from base.business.bcainvdetu import BCaInvDetU
 
 
 def cainvdet_controller(request):
@@ -31,6 +32,7 @@ class ControllerCustom(Controller):
         
         # FUNCIONALIDAD PERSONALIZADA
         # ---------------------------
+        self.actions['action_list_cainvdetu'] = self.action_list_cainvdetu
 
     def action_save(self):
         return super().action_save()
@@ -74,8 +76,23 @@ class ControllerCustom(Controller):
         La segunda tupla tiene las etiquetas para pantallas pequeñas
         '''
         return [ 
-                ('Codigo', 'Descripcion', 'Unidad', 'Stock', 'Conteo1', 'Conteo2,' 'Acción'),
+                ('Codigo', 'Descripcion', 'Unidad', 'Stock', 'Conteo1', 'Conteo2', 'Acción'),
         ]
 
-    def action_demo(self):
-        print( 'DEMO', self.data)
+    def action_list_cainvdetu(self):
+        cainvdet_id = self.data['cainvdet_id']
+        oBCaInvDet = BCaInvDet()
+        oTOCaInvDet = oBCaInvDet.get(cainvdet_id)
+        oBCaInvDetU = BCaInvDetU()
+        oTO = oBCaInvDetU.get_all_parent(cainvdet_id)
+
+        self.context['aCaInvDetU'] = oBCaInvDetU.get_aTO_toArray()
+        self.context['cainvdet'] = {
+            's_codigo': oTOCaInvDet.producto.s_codigo if oTOCaInvDet!=None else '',
+            's_descripcion': oTOCaInvDet.producto.s_descripcion if oTOCaInvDet!=None else '',
+        }
+
+        print( 'DEMO', self.context)
+  
+        return self.context
+    

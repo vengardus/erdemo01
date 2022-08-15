@@ -32,6 +32,7 @@ class ControllerCustom(Controller):
         # FUNCIONALIDAD PERSONALIZADA
         # ---------------------------
 
+
     def action_save(self):
         return super().action_save()
 
@@ -76,3 +77,4 @@ class ControllerCustom(Controller):
                 ('Id', 'Descripción', 'Acción'),
         ]
 
+    

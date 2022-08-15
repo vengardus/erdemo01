@@ -27,6 +27,15 @@ class BCaInvDet(Table):
     
     def get_oTO_toDict(self, oTO:CaInvDet):
         # acá se genera diccionario con los atributos a retornar
+
+        
+        #print('COUNT', oTO.cainvdets.count)}
+
+        #x = oTO.cainvdets.all().count()
+        #for i in list(x):
+        #    print('X', i.id, i.ca_inv_det_id, i.ns_conteo)
+        #print('COUNT', x)
+
         return {
             'id':oTO.id,
             's_codigo':oTO.s_codigo,
@@ -36,6 +45,7 @@ class BCaInvDet(Table):
             'n_stk_act': oTO.n_stk_act,
             'ns_conteo1': oTO.ns_conteo1,
             'ns_conteo2': oTO.ns_conteo2,
+            'count_cainvdetu': oTO.cainvdets.all().count()
         }
 
     ''' ----------------------

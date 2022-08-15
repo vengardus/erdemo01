@@ -67,6 +67,18 @@ jue 11 ago 2022 23:23:49 -05
         .col_7 {
             width: var(--col-1);
         }
+
+
+        /* modal_cainvdet */
+        .col_modal_1 {
+            width: var(--col-3);
+        }
+        .col_modal_2 {
+            width: var(--col-4);
+        }
+        .col_modal_3 {
+            width: var(--col-4);
+        }
     }
 </style>
 {% endblock %} 
@@ -74,6 +86,8 @@ jue 11 ago 2022 23:23:49 -05
 {% block content %} 
 
 {% include general.component_listview %}
+
+{% include 'base/cainvdet/cainvdet_cainvdetu_modal.html' %}
 
 <input type="hidden" name="" id="ca_inv_cab_id" value="{{ data.ca_inv_cab_id }}">
 
