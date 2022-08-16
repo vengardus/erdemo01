@@ -12,6 +12,7 @@ from base.choices import EstadoInventarioChoices
 from base.business.bproducto import BProducto
 from base.business.bcainvdet import BCaInvDet
 from base.business.bcainvdetu import BCaInvDetU
+from base.models import Stock
 
 
 class BCaInvCab(Table):
@@ -79,6 +80,10 @@ class BCaInvCab(Table):
             
         return ok
     
+    '''
+    Crea inventario
+    Genera cvainvcab y cainvdet a partir de producto y stock
+    '''
     @transaction.atomic
     def create_inventario(self, data, mode, request):
         ok = False
@@ -98,7 +103,12 @@ class BCaInvCab(Table):
         oBProducto = BProducto()
         aTOProducto = oBProducto.get_all(request.user.license_id)
         for oTOProducto in aTOProducto:
-            print(oTOProducto)
+            # obtener stock
+            try:
+                stock:Stock = Stock.objects.get(producto__id=oTOProducto.id)
+            except Stock.DoesNotExist:
+                stock = None       
+            print ('stock', stock)
             # insert cainvdet
             data = {
                 'ca_inv_cab' : oTO,
@@ -107,7 +117,7 @@ class BCaInvCab(Table):
                 's_cod_barra': '',
                 's_descripcion': oTOProducto.s_descripcion,
                 'unidad_medida': oTOProducto.unidad_medida,
-                'n_stk_act': 100,
+                'n_stk_act': stock.n_stk_act if stock!=None else 0,
                 's_ubicacion': 'UNICA',
                 'ns_conteo1' : 0,
                 'ns_conteo2' : 0
@@ -126,6 +136,9 @@ class BCaInvCab(Table):
             self.aTO = self.TO.objects.all().filter(license_id=license_id)
         return self.aTO
     
+    '''
+    actualiza conteo de producto encainvdet y cainvdetu
+    '''
     @transaction.atomic
     def add_item(self, ca_inv_cab_id, producto_codigo, s_ubicacion, cantidad, id_conteo=1):
         ok = False

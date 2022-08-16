@@ -105,3 +105,10 @@ class CaInvDetU(Common):
         #self.ca_inv_det, self.id_conteo, self.s_ubicacion, self.ns_conteo
 
 
+class Stock(Common):
+    producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
+    n_stk_act = models.DecimalField(max_digits=14, decimal_places=4, default=0)
+
+    def __str__(self) -> str:
+        return f'{self.producto.s_codigo} {self.n_stk_act}'
+
