@@ -5,6 +5,7 @@ from base import views
 from base.views import home_view, login_view
 from base.views import cainvcab_view, cainvdet_view
 from base.api import cainvcab_api, cainvdet_api
+from base.views import import_view
 
 urlpatterns = [
     path('', home_view.main, name='main'),
@@ -22,5 +23,6 @@ urlpatterns = [
     path('cainvdet_list/<str:id>/', cainvdet_view.cainvdet_list, name='cainvdet_list'),
     path('cainvdet_form/<str:mode>/<str:id>/', cainvdet_view.cainvdet_form, name='cainvdet_form'),
 
+    path('import_form/', import_view.import_data, name='import_form'),
 ]
 

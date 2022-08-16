@@ -251,6 +251,8 @@ class Template():
     cainvdet_list = 'base/cainvdet/cainvdet_list.html'
     cainvdet_form = 'base/cainvdet/cainvdet_form.html'
 
+    import_form = 'base/import/import_form.html'
+
 class Route():
     # log
     controller_log = '/controller_log'
@@ -315,7 +317,7 @@ aMenu = [
     ('Inicio', 'main', []),
 
     ('Inventario', 'cainvcab_list', []),
-    # ('InvDet', '#', []),
+    ('Import', 'import_form', []),
 
     # ('Catálogos', '#', [
     #    ('Bancos', '#'),

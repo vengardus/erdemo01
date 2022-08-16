@@ -352,7 +352,7 @@ function get_data_columns(item) {
     return [
         { data: item.s_codigo, class: '' },
         { data: item.s_descripcion, class: '' },
-        { data: item.unidad_medida_desc, class: '' },
+        { data: item.unidad_medida_s_descripcion, class: '' },
         { data: item.n_stk_act, class: '' },
         { data: item.ns_conteo1, class: (item.count_cainvdetu>0)? 'success':'' },
         { data: item.ns_conteo2, class: '' },

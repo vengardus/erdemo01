@@ -41,7 +41,8 @@ class BCaInvDet(Table):
             's_codigo':oTO.s_codigo,
             's_cod_barra': oTO.s_cod_barra,
             's_descripcion': oTO.s_descripcion,
-            'unidad_medida_desc': oTO.unidad_medida.s_descripcion,
+            'unidad_medida_s_codigo': oTO.unidad_medida.s_codigo,
+            'unidad_medida_s_descripcion': oTO.unidad_medida.s_descripcion,
             'n_stk_act': oTO.n_stk_act,
             'ns_conteo1': oTO.ns_conteo1,
             'ns_conteo2': oTO.ns_conteo2,
@@ -106,7 +107,7 @@ class BCaInvDet(Table):
     def get_all_invcab(self, ca_inv_cab, license_id:int=None):
         if license_id == None:
             # self.aTO = self.TO.objects.all().order_by('desc')
-            self.aTO = self.TO.objects.all(),filter(ca_inv_cab=ca_inv_cab)
+            self.aTO = self.TO.objects.all().filter(ca_inv_cab=ca_inv_cab)
         else:
             self.aTO = self.TO.objects.all().filter(license_id=license_id, ca_inv_cab=ca_inv_cab)
         return self.aTO

@@ -28,6 +28,8 @@ class BCaInvDetU(Table):
         return {
             'id':oTO.id,
             'ca_inv_det_id':oTO.ca_inv_det.id,
+            's_codigo':oTO.ca_inv_det.producto.s_codigo,
+            's_descripcion':oTO.ca_inv_det.producto.s_descripcion,
             'id_conteo':oTO.id_conteo,
             's_ubicacion':oTO.s_ubicacion,
             'ns_conteo':oTO.ns_conteo,
@@ -139,4 +141,20 @@ class BCaInvDetU(Table):
         else:
             self.aTO = self.TO.objects.all().filter(
                 license_id=license_id, ca_inv_det__id=cainvdet_id)
+        return self.aTO
+
+    def get_all_inv_ubi_conteo(self, cainvcab_id, s_ubicacion, id_conteo, license_id:int=None):
+        if license_id == None:
+            self.aTO = self.TO.objects.all().filter(
+                ca_inv_det__ca_inv_cab__id=cainvcab_id,
+                s_ubicacion=s_ubicacion,
+                id_conteo=id_conteo,
+                )
+        else:
+            self.aTO = self.TO.objects.all().filter(
+                license_id=license_id, 
+                ca_inv_det__ca_inv_cab__id=cainvcab_id,
+                s_ubicacion=s_ubicacion,
+                id_conteo=id_conteo
+                )
         return self.aTO

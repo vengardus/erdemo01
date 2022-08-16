@@ -1,6 +1,8 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+
+from ..business.bcainvdetu import BCaInvDetU
 from ..business.bcainvcab import BCaInvCab
 from base.business.bproducto import BProducto
 from .serializer import ProductoSerializer
@@ -120,16 +122,53 @@ def get_invdet(request, id_invcab, producto_codigo):
     else:
         data_response = {
             'status': status.HTTP_200_OK,
-            'data': {
-                'id': oTO.producto.id,
-                's_descripcion': oTO.s_descripcion,
-                's_codigo': oTO.producto.s_codigo,
-                'unidad_medida_s_codigo': oTO.unidad_medida.s_codigo,
-                'unidad_medida_s_descripcion': oTO.unidad_medida.s_descripcion,
-                'n_stk_act': oTO.n_stk_act,
-                'ns_conteo1': oTO.ns_conteo1,
-                'ns_conteo2': oTO.ns_conteo2,
+            'data' : oBCaInvDet.get_oTO_toDict(oTO)
+            # 'data': {
+            #     'id': oTO.producto.id,
+            #     's_descripcion': oTO.s_descripcion,
+            #     's_codigo': oTO.producto.s_codigo,
+            #     'unidad_medida_s_codigo': oTO.unidad_medida.s_codigo,
+            #     'unidad_medida_s_descripcion': oTO.unidad_medida.s_descripcion,
+            #     'n_stk_act': oTO.n_stk_act,
+            #     'ns_conteo1': oTO.ns_conteo1,
+            #     'ns_conteo2': oTO.ns_conteo2,
 
-            }
+            # }
+        }
+    return Response(data_response)
+
+
+@api_view(['GET'])
+def get_list_invdet(request, id_invcab):
+    oBCaInvDet = BCaInvDet()
+    oBCaInvDet.get_all_invcab(id_invcab)
+    aCaInvDet = oBCaInvDet.get_aTO_toArray()
+    if not aCaInvDet:
+        data_response = {
+            'status': status.HTTP_204_NO_CONTENT,
+            'data' : []
+        }
+    else:
+        data_response = {
+            'status': status.HTTP_200_OK,
+            'data': aCaInvDet
+        }
+    return Response(data_response)
+
+
+@api_view(['GET'])
+def get_list_invdetu(request, id_invcab, s_ubicacion, id_conteo):
+    oBCaInvDetU = BCaInvDetU()
+    oBCaInvDetU.get_all_inv_ubi_conteo(id_invcab, s_ubicacion, id_conteo)
+    aCaInvDetU = oBCaInvDetU.get_aTO_toArray()
+    if not aCaInvDetU:
+        data_response = {
+            'status': status.HTTP_204_NO_CONTENT,
+            'data' : []
+        }
+    else:
+        data_response = {
+            'status': status.HTTP_200_OK,
+            'data': aCaInvDetU
         }
     return Response(data_response)
