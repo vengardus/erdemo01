@@ -172,3 +172,22 @@ def get_list_invdetu(request, id_invcab, s_ubicacion, id_conteo):
             'data': aCaInvDetU
         }
     return Response(data_response)
+
+
+@api_view(['GET'])
+def get_list_invdetu_group(request, id_invcab):
+    oBCaInvDetU = BCaInvDetU()
+    aCaInvDetU = oBCaInvDetU.get_all_ubi_group(id_invcab)
+    #aCaInvDetU = oBCaInvDetU.get_aTO_toArray()
+    if not aCaInvDetU:
+        data_response = {
+            'status': status.HTTP_204_NO_CONTENT,
+            'data' : []
+        }
+    else:
+        data_response = {
+            'status': status.HTTP_200_OK,
+            'data': aCaInvDetU
+        }
+    return Response(data_response)
+
