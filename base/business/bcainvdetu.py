@@ -26,8 +26,6 @@ class BCaInvDetU(Table):
     
     def get_oTO_toDict(self, oTO:CaInvDetU):
         # acá se genera diccionario con los atributos a retornar
-        print('óTO', oTO)
-        print('óTO', oTO['id']  )
         return {
             'id':oTO.id,
             'ca_inv_det_id':oTO.ca_inv_det.id,

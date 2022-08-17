@@ -30,7 +30,7 @@ app_env['ENV'] = env('ENV')
 app_env['APP_VERSION'] = env('APP_VERSION')
 app_env['SECRET_KEY'] = env('SECRET_KEY')
 app_env['DATABASE_URl'] = env('DATABASE_LOCAL_URL') if app_env['ENV']=='dev' else env('DATABASE_URL')
-print(app_env)
+
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = app_env['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
