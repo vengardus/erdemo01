@@ -1,4 +1,5 @@
 from datetime import datetime
+from pyexpat import model
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 import base.choices
@@ -41,6 +42,14 @@ class User(AbstractUser):
     REQUIRED_FIELDS = []
     pass
 
+class Log(Common):
+    modulo = models.CharField(max_length=40)
+    accion = models.CharField(max_length=40)
+    detalle = models.CharField(max_length=200)
+
+    def __str__(self) -> str:
+        return f'{self.modulo} - {self.accion} - {self.detalle}'
+
 
 class UnidadMedida(Common):
     s_codigo = models.CharField(max_length=5)
@@ -62,6 +71,7 @@ class Producto(Common):
     s_codigo = models.CharField(max_length=20)
     s_descripcion = models.CharField(max_length=100)
     unidad_medida = models.ForeignKey(UnidadMedida, on_delete=models.CASCADE)
+    s_categoria = models.CharField(max_length=40, null=True)
 
     def __str__(self) -> str:
         return self.s_descripcion
@@ -89,6 +99,7 @@ class CaInvDet(Common):
     s_ubicacion = models.CharField(max_length=10)
     ns_conteo1 = models.DecimalField(max_digits=14, decimal_places=4, default=0)
     ns_conteo2 = models.DecimalField(max_digits=14, decimal_places=4, default=0)
+    s_categoria = models.CharField(max_length=40, null=True)
 
     def __str__(self) -> str:
         return f"{self.s_descripcion} {self.ns_conteo1} {self.ns_conteo2}"

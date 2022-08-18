@@ -1,3 +1,4 @@
+from email.policy import HTTP
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -9,6 +10,8 @@ from .serializer import ProductoSerializer
 from base.models import CaInvCab, CaInvDet
 from base.choices import EstadoInventarioChoices
 from base.business.bcainvdet import BCaInvDet
+from base.config import Sistema
+from base.business.blog import BLog
 
 
 @api_view(['GET'])
@@ -49,6 +52,7 @@ def get_producto(request, id=None):
 @api_view(['POST'])
 def add_item(request):
     print('POST', request.data)
+    oBLOg = BLog()
     try:
         data = request.data
         ca_inv_cab_id = data['ca_inv_cab_id']
@@ -57,8 +61,11 @@ def add_item(request):
         s_ubicacion = data['s_ubicacion']
         cantidad = data['cantidad']
 
+        oBLOg.save(None, 'new', 0, {'modulo':'api', 'accion':'getadditem', 
+            'detalle': f'request: {ca_inv_cab_id} - {producto_codigo} - {s_ubicacion} - {cantidad}'})
+
         if len(s_ubicacion) == 0:
-            s_ubicacion = 'UNICA'
+            s_ubicacion = Sistema.UBICACION_UNICA
 
         oBCaInvCab = BCaInvCab()
         if not oBCaInvCab.add_item(
@@ -78,12 +85,24 @@ def add_item(request):
             'data' : data,
             'message': message
         }
+
+        oBLOg.save(None, 'new', 0, 
+            {'modulo':'api', 'accion':'getadditem', 
+            'detalle':f'response: OK - {ca_inv_cab_id} - {producto_codigo} - {s_ubicacion} - {cantidad}' if status_id==status.HTTP_200_OK else f'response ERROR {message}'
+            }
+        )
+
     except Exception as e:
         data_response = {
             'status' : status.HTTP_400_BAD_REQUEST ,
             'data' : {},
             'message': f'Ocurrió un error except. {e}' 
         }
+        oBLOg.save(None, 'new', 0, 
+            {'modulo':'api', 'accion':'getadditem', 
+            'detalle':f'response: OK - {data_response["status"]} - {data_response["message"]}'
+            }
+        )
 
     return Response(data_response)
 

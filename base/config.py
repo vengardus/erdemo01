@@ -170,6 +170,8 @@ class Sistema():
 
     PROFORMA_PREFIJO = 'PROFORMA'
 
+    UBICACION_UNICA = "UNICA"
+
 # -------------------
 # PTOVTA : 20210429
 # -------------------

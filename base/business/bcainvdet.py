@@ -46,7 +46,8 @@ class BCaInvDet(Table):
             'n_stk_act': oTO.n_stk_act,
             'ns_conteo1': oTO.ns_conteo1,
             'ns_conteo2': oTO.ns_conteo2,
-            'count_cainvdetu': oTO.cainvdets.all().count()
+            'count_cainvdetu': oTO.cainvdets.all().count(),
+            's_categoria': oTO.s_categoria if oTO.s_categoria else ''
         }
 
     ''' ----------------------
@@ -66,6 +67,7 @@ class BCaInvDet(Table):
         oTO.s_ubicacion = data['s_ubicacion']
         oTO.ns_conteo1 = data['ns_conteo1']
         oTO.ns_conteo2 = data['ns_conteo2']
+        oTO.s_categoria = data['s_categoria']
 
         if mode != 'new':
             oTO.user_edit_id = request.user.id

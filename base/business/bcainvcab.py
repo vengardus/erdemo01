@@ -7,7 +7,7 @@ from decimal import Decimal
 from django.db import transaction
 from base.libs.table import Table
 from base import config as PARAMS
-from base.models import CaInvCab, CaInvDet
+from base.models import CaInvCab, CaInvDet, Producto
 from base.choices import EstadoInventarioChoices
 from base.business.bproducto import BProducto
 from base.business.bcainvdet import BCaInvDet
@@ -102,6 +102,7 @@ class BCaInvCab(Table):
         oBCaInvDet = BCaInvDet()
         oBProducto = BProducto()
         aTOProducto = oBProducto.get_all(request.user.license_id)
+        oTOProducto:Producto
         for oTOProducto in aTOProducto:
             # obtener stock
             try:
@@ -118,9 +119,10 @@ class BCaInvCab(Table):
                 's_descripcion': oTOProducto.s_descripcion,
                 'unidad_medida': oTOProducto.unidad_medida,
                 'n_stk_act': stock.n_stk_act if stock!=None else 0,
-                's_ubicacion': 'UNICA',
+                's_ubicacion': PARAMS.Sistema.UBICACION_UNICA,
                 'ns_conteo1' : 0,
-                'ns_conteo2' : 0
+                'ns_conteo2' : 0,
+                's_categoria': oTOProducto.s_categoria
             }
             oBCaInvDet.save(request, mode, 0, data)
 
