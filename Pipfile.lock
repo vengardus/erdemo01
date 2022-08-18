@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "58c899308e5f66838c1094771aabb5335e464365ee8d925c9c04ccc9ed931a50"
+            "sha256": "1559b75487a1657012588f13a29ae951dd6c87fcbe94168ad526629c798df0ea"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -71,6 +71,14 @@
             "index": "pypi",
             "version": "==3.13.1"
         },
+        "et-xmlfile": {
+            "hashes": [
+                "sha256:8eb9e2bc2f8c97e37a2dc85a09ecdcdec9d8a396530a6d5a33b30b9a92da0c5c",
+                "sha256:a2ba85d1d6a74ef63837eed693bcb89c3f752169b0e3e7ae5b16ca5e1b3deada"
+            ],
+            "markers": "python_version >= '3.6'",
+            "version": "==1.1.0"
+        },
         "gunicorn": {
             "hashes": [
                 "sha256:9dcc4547dbb1cb284accfb15ab5667a0e5d1881cc443e0677b4882a4067a807e",
@@ -112,6 +120,14 @@
             ],
             "markers": "python_version >= '3.10'",
             "version": "==1.23.2"
+        },
+        "openpyxl": {
+            "hashes": [
+                "sha256:0ab6d25d01799f97a9464630abacbb34aafecdcaa0ef3cba6d6b3499867d0355",
+                "sha256:e47805627aebcf860edb4edf7987b1309c1b3632f3750538ed962bbcc3bd7449"
+            ],
+            "index": "pypi",
+            "version": "==3.0.10"
         },
         "pandas": {
             "hashes": [
@@ -283,11 +299,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:7a2e7e95c3bf33f356b4c59aee7a6848585c4219dd3e941e43cc117888f210e4",
-                "sha256:c04a012ae3a1b2cc2aeed4893377b70ea61c6c143d0acceea16ec4b60de6e40d"
+                "sha256:101bf15ca723beef42c8db91a761f3748d4d697e17fae904db60c0b619d8d094",
+                "sha256:39275e7aafa4a4f0f4308f2302c6ee384dcdacdbaacc1e30dcbb6fd824c625bb"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==65.0.1"
+            "version": "==65.0.2"
         },
         "six": {
             "hashes": [
@@ -312,6 +328,14 @@
             ],
             "index": "pypi",
             "version": "==6.2.0"
+        },
+        "xlrd": {
+            "hashes": [
+                "sha256:6a33ee89877bd9abc1158129f6e94be74e2679636b8a205b43b85206c3f0bbdd",
+                "sha256:f72f148f54442c6b056bf931dbc34f986fd0c3b0b6b5a58d013c9aef274d0c88"
+            ],
+            "index": "pypi",
+            "version": "==2.0.1"
         }
     },
     "develop": {}

@@ -14,6 +14,8 @@ django-on-heroku = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
 pandas = "*"
+openpyxl = "*"
+xlrd = "*"
 
 [dev-packages]
 

@@ -39,7 +39,7 @@ class Template():
         self.filename_colors_css = 'styles/templates/colors_dark.css'
         # oCompania = Compania()
         # self.compania_nombre = oCompania.get_nombre(license_id)
-        self.compania_nombre = 'Grupo Ramos SAC'
+        self.compania_nombre = ''
 
         self.set_context()
 
