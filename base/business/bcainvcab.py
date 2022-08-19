@@ -118,6 +118,7 @@ class BCaInvCab(Table):
                 's_cod_barra': '',
                 's_descripcion': oTOProducto.s_descripcion,
                 'unidad_medida': oTOProducto.unidad_medida,
+                'unidad_medida_s_codigo': oTOProducto.unidad_medida.s_codigo,
                 'n_stk_act': stock.n_stk_act if stock!=None else 0,
                 's_ubicacion': PARAMS.Sistema.UBICACION_UNICA,
                 'ns_conteo1' : 0,

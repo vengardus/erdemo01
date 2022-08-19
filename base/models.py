@@ -100,6 +100,7 @@ class CaInvDet(Common):
     ns_conteo1 = models.DecimalField(max_digits=14, decimal_places=4, default=0)
     ns_conteo2 = models.DecimalField(max_digits=14, decimal_places=4, default=0)
     s_categoria = models.CharField(max_length=40, null=True)
+    unidad_medida_s_codigo = models.CharField(max_length=5, null=True)
 
     def __str__(self) -> str:
         return f"{self.s_descripcion} {self.ns_conteo1} {self.ns_conteo2}"

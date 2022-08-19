@@ -319,7 +319,8 @@ aMenu = [
     ('Inicio', 'main', []),
 
     ('Inventario', 'cainvcab_list', []),
-    # ('Import', 'import_form', []),
+    
+    ('Import', 'import_form', []),
 
     # ('Catálogos', '#', [
     #    ('Bancos', '#'),
@@ -455,3 +456,6 @@ class MetodoPago():
     ]
 
 
+class ImportSheet():
+    producto = 'PRODUCTO'
+    stock = 'STOCK'
