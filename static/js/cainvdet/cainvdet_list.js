@@ -60,7 +60,7 @@ class FormApp extends Form {
             
             let oController = new Controller(`${controller_name}`, data, action_refresh);
             oController.fetch_action();
-        }, 10000)
+        }, 3000)
         
         this.init_modal_dialog();
         this.init_modal_cainvdetu();
