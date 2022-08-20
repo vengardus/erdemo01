@@ -109,26 +109,21 @@ class BCaInvDetU(Table):
             return aTO[0]
         return None
 
-    def save_api(self, mode, id, data:list()):
+    def save_api(self, mode, id, data:list(), oTO=None):
         ok = False
-        print(mode, id)
         if mode == 'new' :
             oTO = self.TO()
-            print('UNO-1')
             oTO = self._set_oTO(oTO, data, mode, None)
-            print('UNO-2')
             ok = self.insert(oTO)
-            print('UNO-3')
         
         else: # edit
-            oTO = self.get(id)
+            if oTO == None:
+                oTO = self.get(id)
             
             if oTO == None:
-                print('UPD-0')
                 self.message = f'No se encontro registro con id={id}'
                 self.error_code = PARAMS.ErrorCode.not_found
             else:
-                print('UPD')
                 oTO = self._set_oTO(oTO, data, mode, None)
                 ok = self.update(oTO)
             

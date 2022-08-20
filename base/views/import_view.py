@@ -34,7 +34,7 @@ def import_data(request):
             
             print('root:', filename_url)
 
-            oBImport = BImport()
+            oBImport = BImport(request)
             if not oBImport.getExcel(filename_url):
                 print(oBImport.aMessage)
             else:

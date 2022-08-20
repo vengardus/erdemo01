@@ -134,9 +134,10 @@ class BCaInvCab(Table):
     def get_all(self, license_id:int=None):
         if license_id == None:
             # self.aTO = self.TO.objects.all().order_by('desc')
-            self.aTO = self.TO.objects.all()
+            self.aTO = self.TO.objects.all().order_by('id')
         else:
-            self.aTO = self.TO.objects.all().filter(license_id=license_id)
+            self.aTO = self.TO.objects.all().filter(license_id=license_id) \
+                .order_by('id')
         return self.aTO
     
     '''
@@ -158,9 +159,7 @@ class BCaInvCab(Table):
             return False
         
         # update ca_inv_det
-        print('TYPE', type(cantidad))
         oTOCaInvDet.ns_conteo1 += Decimal(cantidad)
-        print('UPDATE', oTOCaInvDet)
         oBCabInvDet.update(oTOCaInvDet)
 
         # update inv_ca_inv_detu
@@ -174,14 +173,11 @@ class BCaInvCab(Table):
             'license_id': oTOCaInvDet.license_id
         }
 
-        print('UNO')
         oBCaInvDetU = BCaInvDetU()
         oTOCaInvDetU = oBCaInvDetU.get_item(oTOCaInvDet.id, id_conteo, s_ubicacion)
-        print('DOS', oTOCaInvDetU)
         if oTOCaInvDetU == None:
             oBCaInvDetU.save_api('new', 0, data)
         else:
-            oBCaInvDetU.save_api('edit', oTOCaInvDetU.id, data)
-        print('TRES-OK')
+            oBCaInvDetU.save_api('edit', oTOCaInvDetU.id, data, oTOCaInvDetU)
         ok = True
         return ok

@@ -95,4 +95,18 @@ class Table():
         self.message_category = 'danger'
         return False
 
+    def delete_all(self):
+        try:
+            self.TO.objects.all().delete()
+        except Exception as e:
+            self.message = f'Error al eliminar ({self.message_tablename}): ' + str(
+                    e.__dict__['orig'])
+            self.error_code = PARAMS.ErrorCode.sql_error
+        else:
+            self.message = f'Se eliminó correctamente ({self.message_tablename}).'
+            self.error_code = PARAMS.ErrorCode.ok
+            self.message_category = 'success'
+            return True
+        return False
+
 

@@ -46,9 +46,9 @@ class BCaInvDet(Table):
             
             's_codigo': oTO.producto.s_codigo if is_inv_open else oTO.s_codigo,
             's_descripcion': oTO.producto.s_descripcion if is_inv_open else oTO.s_descripcion,
-            's_categoria': s_categoria,
-            'unidad_medida_s_codigo': oTO.unidad_medida.s_codigo if is_inv_open else oTO.unidad_medida_s_codigo,
-            'unidad_medida_s_descripcion': oTO.unidad_medida.s_descripcion if is_inv_open else oTO.unidad_medida_s_codigo,
+            's_categoria': oTO.producto.s_categoria if is_inv_open else s_categoria,
+            'unidad_medida_s_codigo': oTO.producto.unidad_medida.s_codigo if is_inv_open else oTO.unidad_medida_s_codigo,
+            'unidad_medida_s_descripcion': oTO.producto.unidad_medida.s_codigo if is_inv_open else oTO.unidad_medida_s_codigo,
           
             's_cod_barra': oTO.s_cod_barra,
             'n_stk_act': oTO.n_stk_act,
@@ -117,9 +117,13 @@ class BCaInvDet(Table):
     def get_all_invcab(self, ca_inv_cab, license_id:int=None):
         if license_id == None:
             # self.aTO = self.TO.objects.all().order_by('desc')
-            self.aTO = self.TO.objects.all().filter(ca_inv_cab=ca_inv_cab)
+            self.aTO = self.TO.objects.all() \
+                        .filter(ca_inv_cab=ca_inv_cab) \
+                        .order_by('-date_edit')
         else:
-            self.aTO = self.TO.objects.all().filter(license_id=license_id, ca_inv_cab=ca_inv_cab)
+            self.aTO = self.TO.objects.all() \
+                        .filter(license_id=license_id, ca_inv_cab=ca_inv_cab) \
+                        .order_by('-date_edit')
         return self.aTO
     
     def get_item(self, ca_inv_cab_id, producto_codigo):

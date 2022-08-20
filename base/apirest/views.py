@@ -52,7 +52,9 @@ def get_producto(request, id=None):
 @api_view(['POST'])
 def add_item(request):
     print('POST', request.data)
-    oBLOg = BLog()
+    
+    #oBLOg = BLog()
+    
     try:
         data = request.data
         ca_inv_cab_id = data['ca_inv_cab_id']
@@ -61,8 +63,8 @@ def add_item(request):
         s_ubicacion = data['s_ubicacion']
         cantidad = data['cantidad']
 
-        oBLOg.save(None, 'new', 0, {'modulo':'api', 'accion':'getadditem', 
-            'detalle': f'request: {ca_inv_cab_id} - {producto_codigo} - {s_ubicacion} - {cantidad}'})
+        # oBLOg.save(None, 'new', 0, {'modulo':'api', 'accion':'getadditem', 
+        #     'detalle': f'request: {ca_inv_cab_id} - {producto_codigo} - {s_ubicacion} - {cantidad}'})
 
         if len(s_ubicacion) == 0:
             s_ubicacion = Sistema.UBICACION_UNICA
@@ -86,11 +88,11 @@ def add_item(request):
             'message': message
         }
 
-        oBLOg.save(None, 'new', 0, 
-            {'modulo':'api', 'accion':'getadditem', 
-            'detalle':f'response: OK - {ca_inv_cab_id} - {producto_codigo} - {s_ubicacion} - {cantidad}' if status_id==status.HTTP_200_OK else f'response ERROR {message}'
-            }
-        )
+        # oBLOg.save(None, 'new', 0, 
+        #     {'modulo':'api', 'accion':'getadditem', 
+        #     'detalle':f'response: OK - {ca_inv_cab_id} - {producto_codigo} - {s_ubicacion} - {cantidad}' if status_id==status.HTTP_200_OK else f'response ERROR {message}'
+        #     }
+        # )
 
     except Exception as e:
         data_response = {
@@ -98,11 +100,11 @@ def add_item(request):
             'data' : {},
             'message': f'Ocurrió un error except. {e}' 
         }
-        oBLOg.save(None, 'new', 0, 
-            {'modulo':'api', 'accion':'getadditem', 
-            'detalle':f'response: OK - {data_response["status"]} - {data_response["message"]}'
-            }
-        )
+        # oBLOg.save(None, 'new', 0, 
+        #     {'modulo':'api', 'accion':'getadditem', 
+        #     'detalle':f'response: OK - {data_response["status"]} - {data_response["message"]}'
+        #     }
+        # )
 
     return Response(data_response)
 
