@@ -18,9 +18,12 @@ from base.business.blog import BLog
 def getRoutes(request):
     routes = [
         'GET /api',
-        'GET /api/productos',
-        'GET /api/productos/:id',
-        
+        'GET /api/getinvcab/',
+        'POST /api/additem/',
+        'GET /api/getinvdet/id_invcab/producto_codigo',
+        'GET /api/getlistinvdet/id_invcab',
+        'GET /api/getlistinvdetu/id_invcab/s_ubicacion/id_conteo',
+        'GET /api/getlistinvdetugroup/id_invcab',
     ]
     return Response(routes)
 
@@ -51,7 +54,8 @@ def get_producto(request, id=None):
 
 @api_view(['POST'])
 def add_item(request):
-    print('POST', request.data)
+    # print('POST api/additem', request.data)
+    print(request, request.data)
     
     #oBLOg = BLog()
     
@@ -111,6 +115,8 @@ def add_item(request):
 
 @api_view(['GET'])
 def get_invcab(request):
+    print(request)
+
     aTO = CaInvCab.objects.all().filter(estado_inventario=EstadoInventarioChoices.opened)
     if aTO:
         oTO:CaInvCab = aTO[0] 
@@ -133,6 +139,8 @@ def get_invcab(request):
 
 @api_view(['GET'])
 def get_invdet(request, id_invcab, producto_codigo):
+    print(request)
+    
     oBCaInvDet = BCaInvDet()
     oTO:CaInvDet = oBCaInvDet.get_item(id_invcab, producto_codigo)
     if oTO == None:
@@ -161,6 +169,8 @@ def get_invdet(request, id_invcab, producto_codigo):
 
 @api_view(['GET'])
 def get_list_invdet(request, id_invcab):
+    print(request)
+
     oBCaInvDet = BCaInvDet()
     oBCaInvDet.get_all_invcab(id_invcab)
     aCaInvDet = oBCaInvDet.get_aTO_toArray()
@@ -179,6 +189,8 @@ def get_list_invdet(request, id_invcab):
 
 @api_view(['GET'])
 def get_list_invdetu(request, id_invcab, s_ubicacion, id_conteo):
+    print(request)
+
     oBCaInvDetU = BCaInvDetU()
     oBCaInvDetU.get_all_inv_ubi_conteo(id_invcab, s_ubicacion, id_conteo)
     aCaInvDetU = oBCaInvDetU.get_aTO_toArray()
@@ -197,6 +209,8 @@ def get_list_invdetu(request, id_invcab, s_ubicacion, id_conteo):
 
 @api_view(['GET'])
 def get_list_invdetu_group(request, id_invcab):
+    print(request)
+
     oBCaInvDetU = BCaInvDetU()
     aCaInvDetU = oBCaInvDetU.get_all_ubi_group(id_invcab)
     #aCaInvDetU = oBCaInvDetU.get_aTO_toArray()

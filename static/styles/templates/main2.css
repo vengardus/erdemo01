@@ -146,6 +146,15 @@ input, input:valid {
     /* color: var(--background-color); */
     color: var(--btn-text-color);
 }
+.button--info {
+    background-color: var(--info);
+    color: var(--btn-background-color);
+    text-transform: uppercase;
+    /* color: var(--btn-text-color); */
+    /* width: 7rem; */
+    display: flex;
+    justify-content: center;
+}
 
 .material-icons {
     font-size: 1.2rem;

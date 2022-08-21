@@ -22,9 +22,9 @@ def cainvdet_list(request, id):
     oListView.template_container = PARAMS.TemplateContainerMain
     oListView.template = PARAMS.Template.cainvdet_list
     oListView.actions['action_new'] = reverse('cainvdet_form', args=['new', 0])
+    oListView.is_disabled_button_add = True
     oListView.set_context()
     oListView.data['ca_inv_cab_id'] = id
-    print('CONTEXT', oListView.context)
     return render(request, oListView.template, context=oListView.context)
 
 

@@ -10,6 +10,8 @@ Updates:
         Ahora la personalización de c/columna se define en el css correspondiente
     2021.08.11
         se adiciona un parametro en el constructor license_id para enviarselo a Template
+    2022.08.21
+        se adiciona atributo is_disabled_button_add por defecto es False
 '''
 from ..config import Template as PARAMS_Template
 from ..libs.template import Template
@@ -22,7 +24,8 @@ class ListView(Template):
         self.component_listview = PARAMS_Template.listview
         self.listview_title = self.model._meta.verbose_name_plural.capitalize()
         self.listview_btn_new_text = f'Agregar {self.model._meta.verbose_name}'
-        
+        self.is_disabled_button_add = False
+
         self.data_grid = []
         
         self.grid_columns = []
@@ -45,6 +48,7 @@ class ListView(Template):
         self.context['general']['component_listview'] = self.component_listview
         self.context['general']['listview_title'] = self.listview_title
         self.context['general']['listview_btn_new_text'] = self.listview_btn_new_text
+        self.context['general']['is_disabled_button_add'] = self.is_disabled_button_add
         
         # rellena con 'col' si lista está vacía
         # self.grid_columns_justify = self.grid_columns_justify if len(self.grid_columns_justify) else \

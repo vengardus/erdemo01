@@ -5,7 +5,7 @@ from enum import Enum
 # from eventaweb.models.compania import Compania
 # from eventaweb.routes.compania.compania_form_route import compania_form
 
-AppName = 'MisCuentas'
+AppName = 'AlmacénWeb'
 Version = '2022.03.01.a'
 CompaniaName = 'La Compañia'
 

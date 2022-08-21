@@ -84,6 +84,10 @@ class CaInvCab(Common):
     s_descripcion = models.CharField(max_length=100)
     estado_inventario = models.CharField(max_length=1, choices=base.choices.EstadoInventarioChoices.choices, default='1')
 
+    class Meta:
+        verbose_name = 'Inventario'
+        verbose_name_plural = 'Inventarios'
+
     def __str__(self) -> str:
         return self.s_descripcion
 
@@ -101,6 +105,10 @@ class CaInvDet(Common):
     ns_conteo2 = models.DecimalField(max_digits=14, decimal_places=4, default=0)
     s_categoria = models.CharField(max_length=40, null=True)
     unidad_medida_s_codigo = models.CharField(max_length=5, null=True)
+
+    class Meta:
+        verbose_name = 'Detalle Inventario'
+        verbose_name_plural = 'Detalle Inventario'
 
     def __str__(self) -> str:
         return f"{self.s_descripcion} {self.ns_conteo1} {self.ns_conteo2}"

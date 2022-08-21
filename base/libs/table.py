@@ -1,3 +1,14 @@
+''' 
+class Table
+v.1.0
+Created by Edgard Ramos - ismytv@gmail.com
+Date created : 2021.05.29
+Updates:
+Clase base para el modelo (CRUD)
+    2022.08.21
+        Se agrega metodo delete_all
+'''
+
 from base import config as PARAMS
 
 class Table():

@@ -155,7 +155,9 @@ class FormApp extends Form {
      */
     get_filter(filter) {
         return g_aDataTable.filter((table) => 
-                table.desc.toLowerCase().indexOf(filter.toLowerCase()) != -1);
+                table.s_descripcion.toLowerCase().indexOf(filter.toLowerCase()) != -1
+                || table.empleado.toLowerCase().indexOf(filter.toLowerCase()) != -1
+                );
     }
 
 }

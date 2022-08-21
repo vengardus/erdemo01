@@ -21,6 +21,8 @@ def cainvcab_list(request):
     oListView = ListView(CaInvCab)
     oListView.template_container = PARAMS.TemplateContainerMain
     oListView.template = PARAMS.Template.cainvcab_list
+    #oListView.listview_title ='Inventarios'
+    #oListView.listview_btn_new_text = 'Add Inventario'
     oListView.actions['action_new'] = reverse('cainvcab_form', args=['new', 0])
     oListView.set_context()
     return render(request, oListView.template, context=oListView.context)

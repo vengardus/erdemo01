@@ -44,7 +44,7 @@ class BCaInvDetU(Table):
         '''
             Personalizar oTO
         '''
-        print('UNO-0', data, mode)
+        # print('UNO-0', data, mode)
         oTO.ca_inv_det = data['ca_inv_det']
         oTO.id_conteo = data['id_conteo']
         oTO.s_ubicacion = data['s_ubicacion']
@@ -98,13 +98,13 @@ class BCaInvDetU(Table):
         return self.aTO
 
     def get_item(self, ca_inv_det_id, id_conteo, s_ubicacion):
-        print('DATA', ca_inv_det_id, id_conteo, s_ubicacion)
+        # print('DATA', ca_inv_det_id, id_conteo, s_ubicacion)
         aTO = self.TO.objects.all().filter(
             ca_inv_det_id=ca_inv_det_id, 
             id_conteo=id_conteo,
             s_ubicacion=s_ubicacion)
-        print('UNOI-X')
-        print(aTO)
+        # print('UNOI-X')
+        # print(aTO)
         if aTO:
             return aTO[0]
         return None
@@ -158,13 +158,13 @@ class BCaInvDetU(Table):
     def get_all_ubi_group(self, cainvcab_id, license_id:int=None):
         if license_id == None:
             self.aTO = self.TO.objects.all() 
-            print('1) aTO', self.aTO)
+            # print('1) aTO', self.aTO)
 
             self.aTO = self.TO.objects.all() \
                 .filter(ca_inv_det__ca_inv_cab__id=cainvcab_id) \
                 .values('s_ubicacion', 'id_conteo') \
                 .annotate(ns_conteo=Sum('ns_conteo')) 
-            print('aTODEtu', self.aTO)
+            # print('aTODEtu', self.aTO)
         else:
             self.aTO = self.TO.objects.all().filter(
                 license_id=license_id, 

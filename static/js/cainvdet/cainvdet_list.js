@@ -57,9 +57,11 @@ class FormApp extends Form {
         oController.fetch_action();
         
         setInterval(function() {
-            
-            let oController = new Controller(`${controller_name}`, data, action_refresh);
-            oController.fetch_action();
+            let str_filter = document.querySelector(`#${FormApp.FORM.fields.filter_input}`).value
+            if (!str_filter.trim().length) {
+                let oController = new Controller(`${controller_name}`, data, action_refresh);
+                oController.fetch_action();
+            }
         }, 3000)
         
         this.init_modal_dialog();
@@ -75,8 +77,8 @@ class FormApp extends Form {
     }
     init_modal_cainvdetu() {
         let aOption = [
-            { option:'cancel', text:'Cancelar', classname:''},
-            { option:'ok', text:'Continuar', classname:''}
+            { option:'cancel', text:'OK', classname:''},
+            // { option:'ok', text:'Continuar', classname:''}
         ]
         g_oModalCainvdetu = new ModalDialog('modal_cainvdetu', aOption, '');
     }
@@ -198,7 +200,9 @@ class FormApp extends Form {
      */
     get_filter(filter) {
         return g_aDataTable.filter((table) => 
-                table.s_codigo.toLowerCase().indexOf(filter.toLowerCase()) != -1);
+                table.s_codigo.toLowerCase().indexOf(filter.toLowerCase()) != -1
+                || table.s_descripcion.toLowerCase().indexOf(filter.toLowerCase()) != -1
+                );
     }
 
 }
@@ -262,7 +266,7 @@ function action_list_cainvdetu(status, data) {
     
         let pos_label_size_screen = 0;
        
-        let aHeader = [ ['#conteo', 's_ubicacion', 'conteo'] ]
+        let aHeader = [ ['Id Conteo', 'Ubicacion', 'Conteo'] ]
         pos_label_size_screen = (aHeader.length==1)? 0 : is_type_screen(g_min_size_screen.desktop)? 0 : 1;
         //html = ''
         html += '<div class="grid__row grid__row__title">';
@@ -343,7 +347,14 @@ function init_datagrid(data) {
     g_oDatagrid = new DataGrid('datagrid',
         g_aDataTable,
         data.aHeader,
-        get_data_columns
+        get_data_columns,
+        [
+            {
+                action:'edit',
+                abrev:'Edit',
+                icon:'edit'
+            }
+        ]   
     );
     g_oDatagrid.refresh();
 }
@@ -354,8 +365,8 @@ function get_data_columns(item) {
         { data: item.s_descripcion, class: '' },
         { data: `${item.unidad_medida_s_descripcion} /${item.s_categoria}`, class: '' },
         { data: (item.n_stk_act*1).toFixed(2), class: '' },
-        { data: item.ns_conteo1, class: (item.count_cainvdetu>0)? 'success':'' },
-        { data: item.ns_conteo2, class: '' },
+        { data: (item.ns_conteo1*1).toFixed(2), class: (item.count_cainvdetu>0)? 'success':'' },
+        { data: (item.ns_conteo2*1).toFixed(2), class: '' },
     ]
 }
 

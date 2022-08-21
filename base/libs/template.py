@@ -37,6 +37,7 @@ class Template():
         # oUser = User()
         # self.filename_colors_css = oUser.get_modo_apariencia(license_id)
         self.filename_colors_css = 'styles/templates/colors_dark.css'
+        #self.filename_colors_css = 'styles/templates/colors_light.css'
         # oCompania = Compania()
         # self.compania_nombre = oCompania.get_nombre(license_id)
         self.compania_nombre = ''

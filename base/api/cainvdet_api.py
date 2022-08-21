@@ -22,6 +22,7 @@ def cainvdet_controller(request):
 class ControllerCustom(Controller):
 
     def __init__(self, data, request):
+        print(data)
         super().__init__(data)
         self.request = request
         self.set_actions()
@@ -57,7 +58,6 @@ class ControllerCustom(Controller):
         return self.context
 
     def action_refresh(self):
-        print('GARDUSSSS', self.data)
         show_grid_header = self.data['show_grid_header']
         oBModel = BCaInvDet()
         oBModel.get_all_invcab(self.data['ca_inv_cab_id'], self.request.user.license_id)
@@ -84,15 +84,13 @@ class ControllerCustom(Controller):
         oBCaInvDet = BCaInvDet()
         oTOCaInvDet = oBCaInvDet.get(cainvdet_id)
         oBCaInvDetU = BCaInvDetU()
-        oTO = oBCaInvDetU.get_all_parent(cainvdet_id)
+        oBCaInvDetU.get_all_parent(cainvdet_id)
 
         self.context['aCaInvDetU'] = oBCaInvDetU.get_aTO_toArray()
         self.context['cainvdet'] = {
             's_codigo': oTOCaInvDet.producto.s_codigo if oTOCaInvDet!=None else '',
             's_descripcion': oTOCaInvDet.producto.s_descripcion if oTOCaInvDet!=None else '',
         }
-
-        print( 'DEMO', self.context)
   
         return self.context
     
