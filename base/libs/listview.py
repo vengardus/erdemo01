@@ -7,9 +7,11 @@ Updates:
     2021.06.15
         Se elimina propiedad grid_columns_justify
         Se envia como: context.data.grid_columns
-        Ahora la personalización de c/columna se define en el css correspondiente
+        Ahora la personalización de c/columna se define en el css 
+        correspondiente
     2021.08.11
-        se adiciona un parametro en el constructor license_id para enviarselo a Template
+        se adiciona un parametro en el constructor license_id para 
+        enviarselo a Template
     2022.08.21
         se adiciona atributo is_disabled_button_add por defecto es False
 '''

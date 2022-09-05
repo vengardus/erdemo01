@@ -2,6 +2,7 @@ from email.policy import HTTP
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.utils.html import escape
 
 from ..business.bcainvdetu import BCaInvDetU
 from ..business.bcainvcab import BCaInvCab
@@ -138,9 +139,22 @@ def get_invcab(request):
     return Response(data_response)
 
 @api_view(['GET'])
-def get_invdet(request, id_invcab, producto_codigo):
+def get_invdet(request, id_invcab:int, producto_codigo:str):
     print(request)
+
+    # print(request.META['SESSION_MANAGER'])
+    # print(request.META['REMOTE_ADDR'])
+    # print(request.META['REMOTE_HOST'])
+    # print(request.META['SERVER_NAME'])
+    # print(request.META['QUERY_STRING'])
+    # print(request.META['HTTP_USER_AGENT'])
+    # print(request.META['HTTP_HOST'])
+    # print(request.META['CONTENT_TYPE'])
+    # print(request.headers['User-Agent'])
     
+
+    producto_codigo = escape(producto_codigo)
+
     oBCaInvDet = BCaInvDet()
     oTO:CaInvDet = oBCaInvDet.get_item(id_invcab, producto_codigo)
     if oTO == None:

@@ -16,6 +16,7 @@ import django_on_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+print(BASE_DIR)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -37,7 +38,9 @@ SECRET_KEY = app_env['SECRET_KEY']
 DEBUG = True if app_env['ENV'] == 'dev' else False
 
 ALLOWED_HOSTS = ['erdemo01.herokuapp.com',
-                '127.0.0.1'
+                '127.0.0.1',
+                '192.168.1.22',
+                '0.0.0.0',
 ]
 
 

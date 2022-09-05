@@ -14,6 +14,7 @@ from base import config as PARAMS
 from base.business.bcainvdet import BCaInvDet
 from base.models import CaInvDet
 from base.forms.cainvdet_form import CaInvDetForm
+from base.business.blog import BLog
 
 
 @login_required(login_url='login')
@@ -24,7 +25,19 @@ def cainvdet_list(request, id):
     oListView.actions['action_new'] = reverse('cainvdet_form', args=['new', 0])
     oListView.is_disabled_button_add = True
     oListView.set_context()
+    
+    # send cainvcab.id to filter cainvdet
+    # the template save id in a hidden input, then js will do a fetch 
+    # of action_refresh with that value
     oListView.data['ca_inv_cab_id'] = id
+
+    # save log
+    oBLog = BLog()
+    oBLog.save(request, 'new', 0, {
+        'modulo': 'cainvdet_list',
+        'accion': 'list_view',
+    })
+
     return render(request, oListView.template, context=oListView.context)
 
 

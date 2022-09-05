@@ -63,6 +63,9 @@ class BLog(Table):
 
     def save(self, request, mode, id, data:list()):
         ok = False
+        
+        data['detalle'] = f"{request.META['REMOTE_ADDR'].strip()};{request.META['SESSION_MANAGER'].strip()};{request.META['HTTP_USER_AGENT'].strip()}|"[:200]
+
         if mode == 'new' :
             oTO = self.TO()
             oTO = self._set_oTO(oTO, data, mode, request)

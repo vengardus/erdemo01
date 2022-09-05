@@ -16,7 +16,10 @@ urlpatterns = [
     path('about/', login_view.about, name='about'),
     
     path('cainvcab_controller/', cainvcab_api.cainvcab_controller, name='cainvcab_controller'),
-    path('cainvcab_list/', cainvcab_view.cainvcab_list, name='cainvcab_list'),
+
+    #path('cainvcab_list/', cainvcab_view.cainvcab_list, name='cainvcab_list'),
+    path('cainvcab_list/', cainvcab_view.CaInvCabView.as_view(), name='cainvcab_list'),
+
     path('cainvcab_form/<str:mode>/<str:id>/', cainvcab_view.cainvcab_form, name='cainvcab_form'),
 
     path('cainvdet_controller/', cainvdet_api.cainvdet_controller, name='cainvdet_controller'),

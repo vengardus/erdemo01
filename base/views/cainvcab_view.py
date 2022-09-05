@@ -7,6 +7,7 @@ from django.shortcuts import redirect, render
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
+from django.views.generic.base import TemplateView
 
 from base.libs.template import Template
 from base.libs.listview import ListView
@@ -15,6 +16,27 @@ from base.business.bcainvcab import BCaInvCab
 from base.models import CaInvCab
 from base.forms.cainvcab_form import CaInvCabForm
 
+
+
+class CaInvCabView(TemplateView):
+    template_name = PARAMS.Template.cainvcab_list
+
+    def get_context_data(self, **kwargs):
+        oListView = ListView(CaInvCab)
+        
+        #context = super().get_context_data(**kwargs)
+        #oListView.context.update(context)
+        
+        oListView.template_container = PARAMS.TemplateContainerMain
+        oListView.template = PARAMS.Template.cainvcab_list
+        oListView.actions['action_new'] = reverse('cainvcab_form', args=['new', 0])
+
+        print(oListView.context)
+
+        oListView.set_context()
+
+        return oListView.context
+    
 
 @login_required(login_url='login')
 def cainvcab_list(request):
