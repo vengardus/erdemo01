@@ -6,7 +6,8 @@ jue 11 ago 2022 23:23:49 -05
 
 let g_aDataTable = []
 let g_oForm = Object;
-let g_oDatagrid = Object;
+let g_oDatagrid = Object = null;
+let g_block = 1;
 let g_oModalDialog = Object;
 let g_oModalCainvdetu = Object;
 let controller_name = '/cainvdet_controller/'
@@ -49,7 +50,9 @@ class FormApp extends Form {
         let data = {
             action: 'action_refresh',
             show_grid_header: true,
-            ca_inv_cab_id: ca_inv_cab_id.value  // input hidden
+            ca_inv_cab_id: ca_inv_cab_id.value,  // input hidden
+            block: g_block,     //add for pagination
+            is_init: true,
         }
         
         
@@ -62,7 +65,7 @@ class FormApp extends Form {
                 let oController = new Controller(`${controller_name}`, data, action_refresh);
                 oController.fetch_action();
             }
-        }, 3000)
+        }, 7000)
         
         this.init_modal_dialog();
         this.init_modal_cainvdetu();
@@ -153,7 +156,42 @@ class FormApp extends Form {
                         let oController = new Controller(controller_name, data, action_list_cainvdetu);
                         oController.fetch_action();
                         break;
+                    
+                    case 'btn_page_next':
+                        console.log('NEXT PAGE')
+                        {
+                        let data = {
+                            action: 'action_refresh',
+                            show_grid_header: true,
+                            ca_inv_cab_id: ca_inv_cab_id.value,  // input hidden
+                            block: ++g_block,     //add for pagination
+                            is_init: false,
+                        }
+                        
+                        
+                        let oController = new Controller(`${controller_name}`, data, action_refresh);
+                        oController.fetch_action();
+                        }
+                        break;
+
+                    case 'btn_page_prev':
+                        console.log('PREV PAGE')
+                        {
+                        let data = {
+                            action: 'action_refresh',
+                            show_grid_header: true,
+                            ca_inv_cab_id: ca_inv_cab_id.value,  // input hidden
+                            block: --g_block,     //add for pagination
+                            is_init: false,
+                        }
+                        
+                        
+                        let oController = new Controller(`${controller_name}`, data, action_refresh);
+                        oController.fetch_action();
+                        }
+                        break;
                 }
+
                 break;
         }
     }
@@ -344,18 +382,35 @@ function _action_modal_dialog(modal_dialog_id, option) {
 function init_datagrid(data) {
     g_aDataTable = data.aDataTable;
     g_stock_minimo = data.global_stock_minimo;
-    g_oDatagrid = new DataGrid('datagrid',
-        g_aDataTable,
-        data.aHeader,
-        get_data_columns,
-        [
-            {
-                action:'edit',
-                abrev:'Edit',
-                icon:'edit'
-            }
-        ]   
-    );
+    
+    if ( g_oDatagrid === null) {
+        g_oDatagrid = new DataGrid('datagrid',
+            g_aDataTable,
+            data.aHeader,
+            get_data_columns,
+            [
+                {
+                    action:'edit',
+                    abrev:'Edit',
+                    icon:'edit'
+                }
+            ]   
+        );
+        g_oDatagrid.max_rows_page = data.grid.max_rows_page
+        g_oDatagrid.max_pages = data.grid.max_pages
+        g_oDatagrid.block_rows = data.grid.block_rows
+    }
+        
+    g_block = data.grid.block;
+    g_oDatagrid.aData = g_aDataTable
+    g_oDatagrid.current_page = 1
+    g_oDatagrid.current_page_ini = data.grid.current_page_ini
+    g_oDatagrid.ini_row = data.grid.ini_row
+    g_oDatagrid.total_rows = data.grid.total_rows
+    g_oDatagrid.is_init = data.grid.is_init
+
+    console.log(data.grid)
+
     g_oDatagrid.refresh();
 }
 

@@ -42,10 +42,13 @@
         this.show_header = true;
         this.show_footer = false;
         this.show_col_actions = true;
+        this.ini_row = 1;
         this.current_page = 1;
         this.current_page_ini = 1; // pagina inicial de la actual relacion de paginas mostradas 
         this.max_rows_page = 10;
         this.max_pages = 10;    
+        this.block_rows = 100;
+        this.total_rows = 1; // total rows (sin paginacion)
         this.enabled_multiple_datagrid = false; // para redefinir valor prefijo nombre de clase col_*
         this.classname_column = 'col_';
         this._init_actions();
@@ -171,6 +174,7 @@
         if ( this.show_header ) this._show_grid_header();
         
         let range = this._get_range_rows_page();
+        console.log('Range:', range)
 
         // muestra las filas que están en range
         for (let i=0; i<this.aData_current.length; i++) {
@@ -223,9 +227,15 @@
         else {
             this._set_paginacion(this.aData_current.length);
             this._pagination_set_color_buttons(this.current_page);
+            // document.querySelector(`#${this.div_id_pagination_text}`).innerHTML = `Registros del 
+            //     ${range.pos_ini + 1} al ${range.pos_fin + 1} de un total de 
+            //     ${aData.length} ` + ((aData.length>1)? 'registros.':'registro.' );
             document.querySelector(`#${this.div_id_pagination_text}`).innerHTML = `Registros del 
-                ${range.pos_ini + 1} al ${range.pos_fin + 1} de un total de 
-                ${aData.length} ` + ((aData.length>1)? 'registros.':'registro.' );
+                ${range.pos_ini + this.ini_row} 
+                al 
+                ${range.pos_fin + this.ini_row } 
+                de un total de 
+                ${this.total_rows} ` + ((aData.length>1)? 'registros.':'registro.' );
         }
 
         // Actualizar elemento id=grid_detail
@@ -310,11 +320,15 @@
     _set_paginacion(rows) {
         // calcula numero de botones de paginas a mostrar
         let num_pags = Math.ceil(rows/this.max_rows_page);
-        let page_fin = this.current_page_ini +this.max_pages-1;
+        //let page_fin = this.current_page_ini +this.max_pages-1;
+        let page_fin = 1 + this.max_pages-1; 
+
         page_fin = (page_fin > num_pags)? num_pags : page_fin;
+        console.log('ed_setpag_1', num_pags, page_fin)
 
         // crea boton Previo si es necesario
-        if ( this.current_page_ini > 1) {
+        //if ( this.current_page_ini > 1) {
+        if ( this.ini_row > 1) {
             let btn = document.createElement("BUTTON");
             btn.innerHTML = `<<`;
             btn.id = `btn_page_previous`;
@@ -324,9 +338,10 @@
 
         // crea botones por cada numero de página entre page_ini y page_fin 
         for (let i=0; i<num_pags; i++) {
-            if ( !(i>=this.current_page_ini-1 && i<=page_fin-1) ) continue;
+            //if ( !(i>=this.current_page_ini-1 && i<=page_fin-1) ) continue;
             let btn = document.createElement("BUTTON");
-            btn.innerHTML = `${i+1}`;
+            //btn.innerHTML = `${i+1}`;
+            btn.innerHTML = `${i+this.current_page_ini}`;
             // btn.id = `btn_page_${i+1}`;
             btn.id = `${i+1}`;
             // btn.onclick = () => { this._controller(this.actions_datagrid.action_pagination, i+1); }
@@ -334,7 +349,8 @@
         }
 
         // crea boton Siguiente si es necesario
-        if ( page_fin < num_pags ) {
+        //if ( page_fin < num_pags ) {
+        if ( (this.ini_row + this.block_rows - 1) < this.total_rows) {
             let btn = document.createElement("BUTTON");
             btn.innerHTML = `>>`;
             btn.id = `btn_page_next`;
@@ -358,20 +374,23 @@
 
                 switch (target.id) {
                     case 'btn_page_previous':
-                        this.current_page_ini-= this.max_pages;
-                        this.current_page = this.current_page_ini;
-                        this.refresh(this.aData_current, DataGrid.mode_refresh.pagination, this.current_page_ini);
+                        //this.current_page_ini-= this.max_pages;
+                        //this.current_page = this.current_page_ini;
+                        //this.refresh(this.aData_current, DataGrid.mode_refresh.pagination, this.current_page_ini);
+                        _datagrid_action(this.id, 'btn_page_prev', target.id)
                         break;
-                    
+                        
                     case 'btn_page_next':
-                        this.current_page_ini+= this.max_pages;
-                        this.current_page = this.current_page_ini;
-                        this.refresh(this.aData_current, DataGrid.mode_refresh.pagination, this.current_page_ini);
+                        //this.current_page_ini+= this.max_pages;
+                        //this.current_page = this.current_page_ini;
+                        //this.refresh(this.aData_current, DataGrid.mode_refresh.pagination, this.current_page_ini);
+                        _datagrid_action(this.id, 'btn_page_next', target.id)
                         break;
 
                     default:
                         // button con id = # de pagina
                         this.current_page = parseInt(target.id);
+                        
                         this.refresh(this.aData_current, DataGrid.mode_refresh.pagination, this.current_page);
                         // console.log('action_pagination', parms[0], this.current_page);
                         break;

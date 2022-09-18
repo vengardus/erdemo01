@@ -61,9 +61,29 @@ class ControllerCustom(Controller):
     def action_refresh(self):
         time1 = datetime.now()
 
+        grid = {
+            'block': self.data['block'],
+            'max_pages': 10,
+            'max_rows_page': 10,
+        }
+        grid['block_rows'] = grid['max_pages'] * grid['max_rows_page']
+        grid['ini_row'] = (grid['block']-1) * grid['block_rows'] + 1
+
+        print(grid)
+
         show_grid_header = self.data['show_grid_header']
         oBModel = BCaInvDet()
-        oBModel.get_all_invcab(self.data['ca_inv_cab_id'], self.request.user.license_id)
+        oBModel.get_all_invcab(self.data['ca_inv_cab_id'], license_id=self.request.user.license_id)
+        total_rows = len(oBModel.aTO)
+        print(grid['ini_row']-1, grid['block_rows'])
+        oBModel.get_all_invcab_limit(
+                    self.data['ca_inv_cab_id'], 
+                    license_id=self.request.user.license_id, 
+                    ini=grid['ini_row']-1, 
+                    count=grid['ini_row']-1+grid['block_rows']
+                )
+            
+        print(oBModel.aTO[0], oBModel.aTO[0].id, oBModel.aTO[0].s_codigo)
 
         time2 = datetime.now()
 
@@ -73,13 +93,25 @@ class ControllerCustom(Controller):
 
         self.context['action_new'] = reverse(self.url_action_new, args=['new', 0]); #'cainvdet_form'
         self.context['aHeader'] = self.set_grid_columns() if show_grid_header else []
-        
+
+        self.context['grid'] = {
+            'max_pages': grid['max_pages'],
+            'max_rows_page': grid['max_rows_page'],
+            'block_rows': grid['block_rows'],
+
+            'block': grid['block'],
+            'ini_row': grid['ini_row'],
+            'current_page_ini': (grid['block']-1) * grid['max_pages'] + 1,
+            'total_rows': total_rows,
+            'is_init': self.data['is_init'],
+        }
+
         time4 = datetime.now()
-        print('1) ', time1)
-        print('2) ', time2)
-        print('3) ', time3)
-        print('4) ', time4)
-        print('Back ', time4-time1)
+        # print('1) ', time1)
+        # print('2) ', time2)
+        # print('3) ', time3)
+        # print('4) ', time4)
+        # print('Back ', time4-time1)
 
         return self.context
    

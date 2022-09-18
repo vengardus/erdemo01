@@ -126,6 +126,19 @@ class BCaInvDet(Table):
                         .order_by('-date_edit')
         return self.aTO
     
+    def get_all_invcab_limit(self, ca_inv_cab, license_id:int=None, ini=0, count=50):
+        print(ini, count)
+        if license_id == None:
+            # self.aTO = self.TO.objects.all().order_by('desc')
+            self.aTO = self.TO.objects.all() \
+                        .filter(ca_inv_cab=ca_inv_cab) \
+                        .order_by('-date_edit')[ini:count]
+        else:
+            self.aTO = self.TO.objects.all() \
+                        .filter(license_id=license_id, ca_inv_cab=ca_inv_cab) \
+                        .order_by('-date_edit')[ini:count]
+        return self.aTO
+
     def get_item(self, ca_inv_cab_id, producto_codigo):
         aTO = self.TO.objects.all().filter(
             ca_inv_cab=ca_inv_cab_id, s_codigo=producto_codigo)
