@@ -174,8 +174,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-#if app_env['ENV'] !='dev':
-#    django_on_heroku.settings(locals())
+if app_env['ENV'] !='dev':
+    django_on_heroku.settings(locals())
 
 # Puesto a modo Debug para poder subir imagenes al servidor
 DEBUG = True
