@@ -33,10 +33,10 @@ def cainvdet_list(request, id):
 
     # save log
     oBLog = BLog()
-    oBLog.save(request, 'new', 0, {
-        'modulo': 'cainvdet_list',
-        'accion': 'list_view',
-    })
+    #oBLog.save(request, 'new', 0, {
+    #    'modulo': 'cainvdet_list',
+    #    'accion': 'list_view',
+    #})
 
     return render(request, oListView.template, context=oListView.context)
 
