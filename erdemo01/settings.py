@@ -41,6 +41,7 @@ ALLOWED_HOSTS = ['erdemo01.herokuapp.com',
                 '127.0.0.1',
                 '192.168.1.22',
                 '0.0.0.0',
+                 'https://web-production-b9dd.up.railway.app/',
 ]
 
 
