@@ -178,8 +178,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 #    django_on_heroku.settings(locals())
 
 # Puesto a modo Debug para poder subir imagenes al servidor
-#DEBUG = True
-DEBUG = False
+DEBUG = True
+#DEBUG = False
 
 APPEND_SLASH=False
 
