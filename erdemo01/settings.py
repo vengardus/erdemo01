@@ -45,6 +45,10 @@ ALLOWED_HOSTS = ['erdemo01.herokuapp.com',
                  'https://web-production-b9dd.up.railway.app',
 ]
 
+CSRF_TRUSTED_ORIGINS = ['https://web-production-b9dd.up.railway.app']
+
+
+
 
 # Application definition
 
