@@ -179,8 +179,8 @@ if app_env['ENV'] !='dev':
     django_on_heroku.settings(locals())
 
 # Puesto a modo Debug para poder subir imagenes al servidor
-#DEBUG = True
-DEBUG = False
+DEBUG = True
+#DEBUG = False
 
 APPEND_SLASH=False
 
